@@ -1,5 +1,3 @@
-#!/bin/bash
-
 source "$HOME/.config/zsh/secrets.zsh"
 
 # Folder where all the important things are
@@ -24,10 +22,14 @@ for c in "$user_config_folder"/*.zsh(N) "$user_config_folder"/**/*.zsh(N); do
 done
 
 # Autocompletion (must be before plugins)
-if type brew &>/dev/null; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+# To force rebuild: rm ~/.zcompdump && exec zsh
+FPATH="/opt/homebrew/share/zsh/site-functions:${FPATH}"
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+    compinit  # rebuild if older than 24 hours
+else
+    compinit -C  # use cache
 fi
-autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' menu select
 zmodload zsh/complist
 _comp_options+=(globdots)
@@ -49,35 +51,32 @@ eval "$(zoxide init zsh)"
 export BSTINPUTS="$HOME/Library/Application Support/MiKTeX/texmfs/install/bibtex/bst/ieeetran"
 export CPLUS_INCLUDE_PATH="/usr/local/Cellar/gcc/11.2.0_3:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include"
 
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-
-# some useful options (man zshoptions)
-setopt  extendedglob nomatch menucomplete
-unsetopt autocd
-setopt interactive_comments
-stty stop undef		# Disable ctrl-s to freeze terminal.
-export zle_highlight=('paste:none')
-
-# beeping is annoying
-unsetopt BEEP
-
-if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]
-then
-    export SDKMAN_DIR="$HOME/.sdkman"
-    [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Lazy load sdkman - only loads when you first run 'sdk'
+if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
+    export SDKMAN_DIR="$HOME/.sdkman"
+    sdk() {
+        unfunction sdk
+        source "$SDKMAN_DIR/bin/sdkman-init.sh"
+        sdk "$@"
+    }
+fi
 
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/Users/skril/.opam/opam-init/init.zsh' ]] || source '/Users/skril/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
-. "/Users/skril/.acme.sh/acme.sh.env"
+# Lazy load opam - only loads when you first run 'opam'
+if [[ -r "$HOME/.opam/opam-init/init.zsh" ]]; then
+    opam() {
+        unfunction opam
+        source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2>&1
+        opam "$@"
+    }
+fi
+
+# Lazy load acme.sh - only loads when you first run 'acme.sh'
+if [[ -f "$HOME/.acme.sh/acme.sh.env" ]]; then
+    acme.sh() {
+        unfunction acme.sh
+        source "$HOME/.acme.sh/acme.sh.env"
+        acme.sh "$@"
+    }
+fi
