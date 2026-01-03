@@ -13,6 +13,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Installing essentials"
   brew install git neovim tmux lazygit
 
+  echo "Configuring git performance for large repos..."
+  git config --global core.fsmonitor true
+  git config --global core.untrackedCache true
+
 	echo "Installing GNU coreutils..."
 	brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt grep
 
