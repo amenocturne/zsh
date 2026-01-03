@@ -8,6 +8,7 @@ unsetopt BEEP                 # No beeping
 
 # Input
 bindkey -v                    # Vim mode
+KEYTIMEOUT=1                  # 10ms delay for ESC (default 400ms)
 stty stop undef               # Disable ctrl-s freeze
 export zle_highlight=('paste:none')
 

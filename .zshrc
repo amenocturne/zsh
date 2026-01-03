@@ -1,4 +1,4 @@
-source "$HOME/.config/zsh/secrets.zsh"
+[[ -f "$HOME/.config/zsh/secrets.zsh" ]] && source "$HOME/.config/zsh/secrets.zsh"
 
 # Folder where all the important things are
 export VAULT="$HOME/Vault"

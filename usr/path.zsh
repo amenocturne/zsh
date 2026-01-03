@@ -1,11 +1,13 @@
 # Personal scripts
-if [ -d "$VAULT/bin/downloads:$PATH" ]; then
+if [[ -d "$VAULT/bin/downloads" ]]; then
     export PATH="$VAULT/bin/downloads:$PATH"
+fi
+if [[ -d "$VAULT/bin/personal" ]]; then
     export PATH="$VAULT/bin/personal:$PATH"
 fi
 
 # Homebrew
-if [[ $(uname -s) == "Darwin" ]] then;
+if [[ $(uname -s) == "Darwin" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
     export PATH="/opt/homebrew/sbin:$PATH"
 fi
