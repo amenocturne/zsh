@@ -31,3 +31,8 @@ export PATH="$HOME/.ghcup/bin:$PATH"
 
 # Node
 export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+# Work
+export PATH="$HOME/Vault/Work/bin/:$PATH"
+
+# local
+export PATH="$HOME/.local/bin/:$PATH"
