@@ -3,7 +3,10 @@
 # Folder where all the important things are
 export VAULT="$HOME/Vault"
 
-export BROWSER="firefox"
+# Folder where all the important things are
+export VAULT="$HOME/Vault"
+
+export BROWSER="zen"
 export EDITOR="nvim"
 export TERM="xterm-256color"
 export TERMINAL="ghostty"
@@ -56,11 +59,14 @@ export CPLUS_INCLUDE_PATH="/usr/local/Cellar/gcc/11.2.0_3:/Library/Developer/Com
 # Lazy load sdkman - only loads when you first run 'sdk'
 if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
     export SDKMAN_DIR="$HOME/.sdkman"
-    sdk() {
-        unfunction sdk
-        source "$SDKMAN_DIR/bin/sdkman-init.sh"
-        sdk "$@"
-    }
+    # SDKMAN initialization - lazy load by default, override in local.zsh if needed
+    if [[ ! -v EAGER_LOAD_SDKMAN ]]; then
+        sdk() {
+            unfunction sdk
+            source "$SDKMAN_DIR/bin/sdkman-init.sh"
+            sdk "$@"
+        }
+    fi
 fi
 
 # Lazy load opam - only loads when you first run 'opam'
@@ -80,3 +86,12 @@ if [[ -f "$HOME/.acme.sh/acme.sh.env" ]]; then
         acme.sh "$@"
     }
 fi
+
+# gnu-getopt
+export PATH="/opt/homebrew/Cellar/gnu-getopt/2.40/bin/getopt:$PATH"
+
+# Haskell
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+
+
+[[ -f "$ZDOTDIR/local.zsh" ]] && source "$ZDOTDIR/local.zsh"

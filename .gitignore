@@ -4,3 +4,6 @@ history
 .zcompcache
 .zsh_sessions
 secrets.zsh
+local.zsh
+tinkoff-bundle.crt
+.DS_Store
