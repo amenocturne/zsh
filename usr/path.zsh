@@ -36,3 +36,6 @@ export PATH="$HOME/Vault/Work/bin/:$PATH"
 
 # local
 export PATH="$HOME/.local/bin/:$PATH"
+
+# Bun
+export PATH="$HOME/.bun/bin:$PATH"
