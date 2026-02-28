@@ -40,7 +40,7 @@ ytsub() {
 
 alias sdl="pbpaste | xargs -I {} spotdl '{}'"
 # alias mdl="pbpaste | xargs -I {} yt-dlp --cookies-from-browser firefox:'~/Library/Application Support/zen/Profiles' --format bestaudio --audio-format mp3 --extract-audio --output '%(playlist_index)s. %(title)s.%(ext)s' '{}'"
-alias mdl="pbpaste | xargs -I {} yt-dlp --cookies-from-browser firefox:'~/Library/Application Support/zen/Profiles' -x --audio-format mp3 -o '%(playlist_index)s. %(title)s.%(ext)s' '{}'"
+alias mdl="pbpaste | xargs -I {} yt-dlp --js-runtime bun --extractor-args 'youtube:player-client=default,-android_sdkless' --cookies-from-browser firefox:'~/Library/Application Support/zen/Profiles' -x --audio-format mp3 -o '%(playlist_index)s. %(title)s.%(ext)s' '{}'"
 
 # alias vdl="pbpaste | xargs -I {} yt-dlp --cookies-from-browser firefox:'~/Library/Application Support/zen/Profiles' -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 '{}' -o '%(title)s.%(ext)s' "
 # alias vdl="pbpaste | xargs -I {} yt-dlp --cookies-from-browser firefox:'~/Library/Application Support/zen/Profiles' -o '%(title)s.%(ext)s' '{}'"
