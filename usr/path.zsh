@@ -39,3 +39,6 @@ export PATH="$HOME/.local/bin/:$PATH"
 
 # Bun
 export PATH="$HOME/.bun/bin:$PATH"
+
+# Obsidian CLI
+export PATH="/Applications/Obsidian.app/Contents/MacOS:$PATH"
